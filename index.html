@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="description" content="Вызов методов GREEN-API: настройки инстанса, состояние, отправка сообщения и файла по ссылке." />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://api.green-api.com; script-src 'self'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'" />
+    <title>GREEN-API — проверка методов</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./src/app.js"></script>
+  </head>
+  <body>
+    <main class="page">
+      <header class="page-header">
+        <h1>GREEN-API</h1>
+        <p>Проверка методов WhatsApp API</p>
+      </header>
+
+      <div class="workspace">
+        <div class="controls">
+          <section class="connection" aria-label="Параметры подключения">
+            <div class="field">
+              <label for="idInstance">idInstance</label>
+              <input id="idInstance" name="idInstance" type="text" inputmode="numeric" placeholder="idInstance" autocomplete="off" spellcheck="false" required />
+            </div>
+            <div class="field">
+              <label for="apiTokenInstance">ApiTokenInstance</label>
+              <input id="apiTokenInstance" name="apiTokenInstance" type="password" placeholder="ApiTokenInstance" autocomplete="off" spellcheck="false" required />
+            </div>
+          </section>
+
+          <section class="account-actions" aria-label="Настройки и состояние инстанса">
+            <button type="button" data-method="getSettings">getSettings</button>
+            <button type="button" data-method="getStateInstance">getStateInstance</button>
+          </section>
+
+          <form id="messageForm" class="send-form" novalidate>
+            <div class="field">
+              <label for="messagePhone">Номер получателя</label>
+              <input id="messagePhone" name="messagePhone" type="tel" placeholder="77771234567" autocomplete="off" aria-describedby="messagePhoneHint" required />
+              <small id="messagePhoneHint">С кодом страны, например 77771234567</small>
+            </div>
+            <div class="field">
+              <label for="messageText">Сообщение</label>
+              <textarea id="messageText" name="messageText" rows="3" maxlength="20000" placeholder="Hello World!" required></textarea>
+            </div>
+            <button type="submit" data-method="sendMessage">sendMessage</button>
+          </form>
+
+          <form id="fileForm" class="send-form" novalidate>
+            <div class="field">
+              <label for="filePhone">Номер получателя</label>
+              <input id="filePhone" name="filePhone" type="tel" placeholder="77771234567" autocomplete="off" required />
+            </div>
+            <div class="field">
+              <label for="fileUrl">Ссылка на файл</label>
+              <input id="fileUrl" name="fileUrl" type="url" placeholder="https://my.site.com/img/horse.png" autocomplete="off" spellcheck="false" aria-describedby="fileUrlHint" required />
+              <small id="fileUrlHint">Прямая ссылка на файл с расширением</small>
+            </div>
+            <button type="submit" data-method="sendFileByUrl">sendFileByUrl</button>
+          </form>
+        </div>
+
+        <section class="response-panel" aria-label="Ответ GREEN-API">
+          <label class="response-label" for="apiResponse">Ответ:</label>
+          <textarea id="apiResponse" class="api-response" readonly spellcheck="false" placeholder="Здесь появится ответ выбранного метода."></textarea>
+          <p id="requestStatus" class="request-status" role="status" aria-live="polite" aria-atomic="true">Введите параметры подключения и выберите метод.</p>
+        </section>
+      </div>
+
+      <footer class="page-footer">
+        <span>Параметры подключения используются только для запросов к GREEN-API.</span>
+        <a href="https://green-api.com/docs/" target="_blank" rel="noopener noreferrer">Документация</a>
+      </footer>
+    </main>
+  </body>
+</html>
